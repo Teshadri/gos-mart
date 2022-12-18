@@ -1,6 +1,7 @@
 package com.gosmart.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -62,5 +63,25 @@ public class VehicaleTypeServiceImpl implements VehicleTypeService{
 		}
 		return vehicleTypes;
 	}
+
+	@Override
+	public VehicleTypeEntity getVehicleType(Integer vehicleTypeId) {
+		VehicleTypeEntity vehicleType=null;
+		try {
+			log.info("{}-VehicaleTypeServiceImpl listUser()getVehicleTypeDeatiles",VehicleTypeConstants.VEHICLE_TYPE);
+			Optional<VehicleTypeEntity> opt=vehicleTypeRepository.findById(vehicleTypeId);
+			if(opt!=null)
+			{
+				vehicleType=opt.get();
+			}
+			
+			
+		} catch (Exception e) {
+			log.error("{}-VehicaleTypeServiceImpl listUser()-{}",VehicleTypeConstants.VEHICLE_TYPE,e.getMessage());
+			throw new GoSmartException(e.getMessage());
+		}
+		return vehicleType;
+	}
+	
 
 }

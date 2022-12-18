@@ -59,6 +59,27 @@ public class VehicaleTypeController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	@PostMapping("/vehicle/type/vehicletype")
+	public ResponseEntity<VehicleTypeEntity> getVehicleType(@RequestBody VehicleTypeEntity vehicleTypeEntity){
+		
+		log.info("{}-Controller getVehicleType()started",VehicleTypeConstants.VEHICLE_TYPE);
+		
+		try {
+			
+			log.info("{}-Controller getVehicleType()saving VehicleTypeDeatiles",VehicleTypeConstants.VEHICLE_TYPE);
+			
+			VehicleTypeEntity  vehicleTypes=vehicleTypeService.getVehicleType(vehicleTypeEntity.getVehicleTypeId());
+			return new ResponseEntity(vehicleTypes, HttpStatus.OK);
+			} catch (Exception e) {
+				log.error("{}-Controller exceptio occured()-{}",VehicleTypeConstants.VEHICLE_TYPE,e.getMessage());
+				
+				
+				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		
+		
+	}
 	
 
 }

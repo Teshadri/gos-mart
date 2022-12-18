@@ -6,6 +6,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -59,5 +60,23 @@ public class VehicalTypeServiceImplTest {
 		when(repository.findAll()).thenThrow(NullPointerException.class);
 		service.getVehicleTypes();
 	}
-
+	@Test
+	public void testGetVehicleType() throws Exception
+	{
+		Integer vehicleTypeId=1;
+		Optional<VehicleTypeEntity> vehicleType=Mockito.any();
+		when(repository.findById(vehicleTypeId)).thenReturn(vehicleType);
+		List<VehicleTypeEntity> vehicleTypes=service.getVehicleTypes();
+		assertNotNull(vehicleTypes);
+		
+	}
+	@Test(expected = GoSmartException.class)
+	public void testGetVehicleType_Exception() throws Exception
+	{
+		Integer vehicleTypeId=1;
+		
+		when(repository.findById(vehicleTypeId)).thenThrow(NullPointerException.class);
+		service.getVehicleType(1);
+		
+	}
 }
